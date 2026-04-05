@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class DefenseSpell : Spell
+public class CounterSpell : Spell
 {
-    
     //NPC constructor
-    public DefenseSpell() : base()
+    public CounterSpell() : base()
     {
         initValues();
     }
 
     //Player constructor
-    public DefenseSpell(Sprite image) : base(image)
+    public CounterSpell(Sprite image) : base(image)
     {
         initValues();
     }
@@ -19,9 +18,7 @@ public class DefenseSpell : Spell
     protected override void initValues()
     {
         aggroScale = -10;
-        statusScale = -10;
-        spellValue = 10;
+        statusScale = 10;
+        spellValue = 1; //Blocks 1 status effect
     }
-
-
 }

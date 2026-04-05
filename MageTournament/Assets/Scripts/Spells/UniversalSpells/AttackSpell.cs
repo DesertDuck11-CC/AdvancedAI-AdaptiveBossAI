@@ -18,7 +18,7 @@ public class AttackSpell : Spell
     //init values override
     protected override void initValues()
     {
-        aggroScale = 5;
+        aggroScale = 10;
         statusScale = -10;
         spellValue = 15;
     }

@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class DefenseSpell : Spell
+public class IceWallSpell : Spell
 {
-    
     //NPC constructor
-    public DefenseSpell() : base()
+    public IceWallSpell() : base()
     {
         initValues();
     }
 
     //Player constructor
-    public DefenseSpell(Sprite image) : base(image)
+    public IceWallSpell(Sprite image) : base(image)
     {
         initValues();
     }
@@ -20,8 +19,6 @@ public class DefenseSpell : Spell
     {
         aggroScale = -10;
         statusScale = -10;
-        spellValue = 10;
+        spellValue = 20;
     }
-
-
 }

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class Spell
 {
+    //Member variables
     private Sprite buttonImage;
     private Canvas canvas;
     protected bool isPlayer;    //True if spell belongs to player, false if belongs to enemy
@@ -22,11 +23,19 @@ public class Spell
         spellName = null;
     }
 
-    //Player spell constructor
+    //Player spell constructor |||| CURRENTLY NOT IN USE
     public Spell(Sprite image)
     {
         buttonImage = image;
         canvas = GameObject.FindGameObjectWithTag("UICanvas").GetComponent<Canvas>();
+        isPlayer = true;
+        initUI();
+    }
+
+    //Function to set spell to belong to player
+    public void assignPlayer(Sprite image)
+    {
+        buttonImage = image;
         isPlayer = true;
         initUI();
     }
@@ -37,6 +46,20 @@ public class Spell
 
     }
 
+    //Function to set button image
+    public void setImage(Sprite image)
+    {
+        buttonImage = image;
+    }
+
+
+    //Call this to cast the spell
+    public virtual void cast()
+    {
+
+    }
+
+
     //Initializes member variables
     protected virtual void initValues()
     {
@@ -45,11 +68,4 @@ public class Spell
         aggroScale = 0;
         spellName = "none";
     }
-
-    //Call this to cast the spell
-    public void cast()
-    {
-
-    }
-
 }
