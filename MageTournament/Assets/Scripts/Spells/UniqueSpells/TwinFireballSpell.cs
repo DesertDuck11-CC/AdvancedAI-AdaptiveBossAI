@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class AttackSpell : Spell
+public class TwinFireballSpell : Spell
 {
-
     //NPC constructor
-    public AttackSpell() : base()
+    public TwinFireballSpell() : base()
     {
         initValues();
     }
 
     //Player constructor
-    public AttackSpell(Sprite image) : base(image)
+    public TwinFireballSpell(Sprite image) : base(image)
     {
         initValues();
     }
@@ -20,11 +19,6 @@ public class AttackSpell : Spell
     {
         aggroScale = 10;
         statusScale = -10;
-        spellValue = 15;
-    }
-
-    public override void cast()
-    {
-        
+        spellValue = 10;  //This spell does 10 damage twice
     }
 }

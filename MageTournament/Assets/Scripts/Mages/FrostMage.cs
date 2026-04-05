@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class FrostMage : Mage
 {
-    
+    //Constructor
     public FrostMage() : base()
     {
-        spellBook.Add(new AttackSpell());
+
     }
 
 

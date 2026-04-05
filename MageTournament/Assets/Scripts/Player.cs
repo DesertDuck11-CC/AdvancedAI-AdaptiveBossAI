@@ -3,19 +3,23 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Mage playerClass;
+    [SerializeField] public Mage playerClass;
     [SerializeField] private List<Sprite> spellImages = new List<Sprite>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+        updateClass(new FireMage());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            playerClass.cast(0);
+        }
     }
 
     //Call this when the player selects their mage class

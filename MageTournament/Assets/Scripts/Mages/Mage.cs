@@ -68,4 +68,10 @@ public class Mage
             spellBook[i].setImage(spellImages[i]);
         }
     }
+
+    //
+    public void cast(int i)
+    {
+        spellBook[i].cast();
+    }
 }
