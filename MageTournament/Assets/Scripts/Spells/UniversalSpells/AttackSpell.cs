@@ -4,7 +4,7 @@ public class AttackSpell : Spell
 {
 
     //NPC constructor
-    public AttackSpell() : base()
+    public AttackSpell(Mage m) : base(m)
     {
         initValues();
     }
@@ -20,11 +20,14 @@ public class AttackSpell : Spell
     {
         aggroScale = 10;
         statusScale = -10;
-        spellValue = 15;
+        baseSpellValue = 15;
+        spellValue = baseSpellValue;
     }
 
     public override void cast(Mage enemy)
     {
-        enemy.damage(spellValue);
+        //First apply any self damage modifiers
+        int temp = baseSpellValue;
+        Events.HurtMage?.Invoke(spellValue, enemy);
     }
 }

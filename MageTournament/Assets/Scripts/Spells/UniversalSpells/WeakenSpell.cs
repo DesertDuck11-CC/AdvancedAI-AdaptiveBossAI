@@ -4,7 +4,7 @@ public class WeakenSpell : Spell
 {
     
     //NPC constructor
-    public WeakenSpell() : base()
+    public WeakenSpell(Mage m) : base(m)
     {
         initValues();
     }

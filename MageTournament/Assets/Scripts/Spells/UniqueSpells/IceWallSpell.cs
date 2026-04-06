@@ -3,7 +3,7 @@ using UnityEngine;
 public class IceWallSpell : Spell
 {
     //NPC constructor
-    public IceWallSpell() : base()
+    public IceWallSpell(Mage m) : base(m)
     {
         initValues();
     }

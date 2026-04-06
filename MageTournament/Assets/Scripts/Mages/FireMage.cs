@@ -13,8 +13,8 @@ public class FireMage : Mage
     protected override void initSpellBook()
     {
         base.initSpellBook();
-        spellBook.Add(new IgniteSpell());
-        spellBook.Add(new TwinFireballSpell());
+        spellBook.Add(new IgniteSpell(this));
+        spellBook.Add(new TwinFireballSpell(this));
         if (spellImages.Count > 0)
         {
             setSpellImages();

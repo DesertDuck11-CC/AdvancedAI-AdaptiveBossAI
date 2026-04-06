@@ -3,7 +3,7 @@ using UnityEngine;
 public class TwinFireballSpell : Spell
 {
     //NPC constructor
-    public TwinFireballSpell() : base()
+    public TwinFireballSpell(Mage m) : base(m)
     {
         initValues();
     }

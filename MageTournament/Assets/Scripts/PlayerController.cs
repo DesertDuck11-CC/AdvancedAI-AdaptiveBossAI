@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] public Mage playerClass;
     [SerializeField] private List<Sprite> spellImages = new List<Sprite>();

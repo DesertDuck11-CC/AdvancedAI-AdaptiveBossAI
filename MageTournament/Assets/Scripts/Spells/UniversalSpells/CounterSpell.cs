@@ -3,7 +3,7 @@ using UnityEngine;
 public class CounterSpell : Spell
 {
     //NPC constructor
-    public CounterSpell() : base()
+    public CounterSpell(Mage m) : base(m)
     {
         initValues();
     }
@@ -19,6 +19,12 @@ public class CounterSpell : Spell
     {
         aggroScale = -10;
         statusScale = 10;
-        spellValue = 1; //Blocks 1 status effect
+        baseSpellValue = 1;
+        spellValue = baseSpellValue; //Blocks 1 status effect
+    }
+
+    public override void cast(Mage enemy)
+    {
+
     }
 }

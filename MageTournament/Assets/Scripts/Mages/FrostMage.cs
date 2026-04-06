@@ -13,8 +13,8 @@ public class FrostMage : Mage
     protected override void initSpellBook()
     {
         base.initSpellBook();
-        spellBook.Add(new BlizzardSpell());
-        spellBook.Add(new Spell());
+        spellBook.Add(new BlizzardSpell(this));
+        spellBook.Add(new IceWallSpell(this));
         if(spellImages.Count > 0)
         {
             setSpellImages();

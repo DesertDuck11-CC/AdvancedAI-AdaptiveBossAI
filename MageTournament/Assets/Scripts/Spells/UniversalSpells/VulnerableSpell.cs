@@ -4,7 +4,7 @@ public class VulnerableSpell : Spell
 {
 
     //NPC constructor
-    public VulnerableSpell() : base()
+    public VulnerableSpell(Mage m) : base(m)
     {
         initValues();
     }

@@ -11,7 +11,7 @@ public class SpellManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         player = GameObject.FindWithTag("Player").GetComponent<Mage>();
-        playerTurn = true;
+        playerTurn = false;
     }
 
     // Update is called once per frame
@@ -20,21 +20,48 @@ public class SpellManager : MonoBehaviour
         
     }
 
-    //Function casts spell for the current mage and then rotates turn
-    public void cast(Spell spell)
+    //Binding/Unbinding Events
+    private void OnEnable()
+    {
+        Events.NextTurn += nextTurn;
+        Events.HurtMage += damageMage;
+    }
+    private void OnDisable()
+    {
+        Events.NextTurn -= nextTurn;
+        Events.HurtMage -= damageMage;
+    }
+
+
+
+    //Called by both player controller and AI controller to cast the proper spell against the correct enemy
+    public void castSpell(int spellID, Mage caster)
     {
         if(playerTurn)
         {
-            spell.cast(opponent);
-            player.endTurn();
+            Events.SpellCast?.Invoke(spellID, opponent);
+        }
+        else
+        {
+            Events.SpellCast?.Invoke(spellID, player);
+        }
+    }
+
+    //Function casts spell for the current mage and then rotates turn
+    public void nextTurn(Mage m)
+    {
+        if(playerTurn)
+        {
             playerTurn = false;
         }
         else
         {
-            spell.cast(player);
-            opponent.endTurn();
             playerTurn = true;
         }
     }
     
+    public void damageMage(int dmg, Mage m)
+    {
+        m.damage(dmg);
+    }
 }

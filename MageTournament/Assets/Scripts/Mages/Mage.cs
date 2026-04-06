@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Mage
+public class Mage : MonoBehaviour
 {
     //Member vars
     public List<Spell> spellBook = new List<Spell>();
     public List<Sprite> spellImages = new List<Sprite>();
+    private List<Status> statusEffects = new List<Status>();
     protected SpellManager spellManager;
     protected int health;
     protected int block;
@@ -29,7 +30,7 @@ public class Mage
         setSpellManager();
     }
 
-    //Copy constructor
+    //Copy constructors
     public Mage(List<Spell> book, List<Sprite> images)
     {
         spellBook = book;
@@ -37,6 +38,24 @@ public class Mage
         spellImages = images;
         block = 0;
         setSpellManager();
+    }
+
+    public Mage(List<Spell> book)
+    {
+        spellBook = book;
+        maxHealth = 100;
+        block = 0;
+        setSpellManager();
+    }
+
+    //Binding/Unbinding events
+    private void OnEnable()
+    {
+        Events.SpellCast += cast;
+    }
+    private void OnDisable()
+    {
+        Events.SpellCast -= cast;
     }
 
     //Call this function on start to connect the spell manager to the mage class
@@ -57,11 +76,11 @@ public class Mage
         //empty spell book list to be safe
         spellBook.Clear();
         //Add the basic spell additions
-        spellBook.Add(new AttackSpell());
-        spellBook.Add(new DefenseSpell());
-        spellBook.Add(new WeakenSpell());
-        spellBook.Add(new VulnerableSpell());
-        spellBook.Add(new ChargeSpell());
+        spellBook.Add(new AttackSpell(this));
+        spellBook.Add(new DefenseSpell(this));
+        spellBook.Add(new WeakenSpell(this));
+        spellBook.Add(new VulnerableSpell(this));
+        spellBook.Add(new ChargeSpell(this));
     }
 
     //Function sets button images for each spell in the order: Attack->Defense->Weaken->Vulnerable->Charge->Custom1->Custom2
@@ -73,27 +92,55 @@ public class Mage
         }
     }
 
-    //Call this function when player's turn ends
-    public void endTurn()
-    {
 
+    //function called by player to cast the spell
+    public void cast(int i, Mage enemy)
+    {
+        if (enemy == this)
+        {
+            //Do nothing
+        }
+        else
+        {
+            spellBook[i].cast(enemy);
+            Events.NextTurn?.Invoke(this);
+        }
     }
 
 
-    //function called by player to cast the spell
-    public void cast(int i)
+    //Function called for damage modifiers as caster
+    public void checkSelfStatus(int baseDamage)
     {
-        spellManager.cast(spellBook[i]);
+        gameObject.GetComponents<Status>(statusEffects);
+        if (statusEffects.Count > 0)
+        {
+            //Check for damage modifiers
+
+        }
+    }
+    //Function called for damage modifiers as enemy
+    public void checkEnemyStatus(int newDamage)
+    {
+
     }
 
     //function called to damage self
     public void damage(int damage)
     {
+        
+
         block = block - damage;
         if(block <= 0)
         {
+            
             health -= Mathf.Abs(block);
             block = 0;
         }
+    }
+
+    //function called to add block
+    public void defend(int b)
+    {
+        block += b;
     }
 }

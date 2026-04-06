@@ -4,7 +4,7 @@ public class DefenseSpell : Spell
 {
     
     //NPC constructor
-    public DefenseSpell() : base()
+    public DefenseSpell(Mage m) : base(m)
     {
         initValues();
     }
@@ -20,8 +20,12 @@ public class DefenseSpell : Spell
     {
         aggroScale = -10;
         statusScale = -10;
-        spellValue = 10;
+        baseSpellValue = 10;
+        spellValue = baseSpellValue;
     }
 
-
+    public override void cast(Mage enemy)
+    {
+        owner.defend(spellValue);
+    }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class IgniteSpell : Spell
 {
     //NPC constructor
-    public IgniteSpell() : base()
+    public IgniteSpell(Mage m) : base(m)
     {
         initValues();
     }

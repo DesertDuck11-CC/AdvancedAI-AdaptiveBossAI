@@ -3,7 +3,7 @@ using UnityEngine;
 public class BlizzardSpell : Spell
 {
     //NPC constructor
-    public BlizzardSpell() : base()
+    public BlizzardSpell(Mage m) : base(m)
     {
         initValues();
     }

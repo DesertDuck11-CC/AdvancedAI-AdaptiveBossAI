@@ -3,7 +3,7 @@ using UnityEngine;
 public class ChargeSpell : Spell
 {
     //NPC constructor
-    public ChargeSpell() : base()
+    public ChargeSpell(Mage m) : base(m)
     {
         initValues();
     }
@@ -18,6 +18,12 @@ public class ChargeSpell : Spell
     {
         aggroScale = 0;
         statusScale = 0;
+        baseSpellValue = 2;
         spellValue = 2; //Doubles spell value of next spell
+    }
+
+    public override void cast(Mage enemy)
+    {
+
     }
 }
