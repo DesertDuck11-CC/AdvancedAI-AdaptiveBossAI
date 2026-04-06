@@ -101,6 +101,8 @@ public class PlayerUI : MonoBehaviour
 
         enemyShield.SetActive(enemy.block > 0);
         enemyShieldText.text = $"{enemy.block}";
+
+        intentText.text = $"The enemy mage intends to cast {GameObject.FindWithTag("Enemy").GetComponent<EnemyController>().spellToUse.name}!";
     }
 
     private void castSpell(Spell spell)

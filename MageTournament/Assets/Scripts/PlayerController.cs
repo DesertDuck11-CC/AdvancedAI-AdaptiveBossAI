@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         playerClass = Instantiate(playerClass);
         playerClass.health = playerClass.maxHealth;
         playerClass.initSpellBook();
@@ -16,6 +15,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        
+        if(playerClass.health < 0)
+        {
+            playerClass.health = 0;
+        }
     }
 }

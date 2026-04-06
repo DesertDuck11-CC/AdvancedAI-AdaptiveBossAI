@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
+using UnityEngine.SceneManagement;
 
 public class SpellManager : MonoBehaviour
 {
@@ -9,13 +11,15 @@ public class SpellManager : MonoBehaviour
 
     [SerializeField] PlayerUI playerUI;
 
+    private EnemyController controller;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>().playerClass;
         player.spellManager = this;
-        opponent = GameObject.FindWithTag("Enemy").GetComponent<EnemyController>().enemyClass;
+        controller = GameObject.FindWithTag("Enemy").GetComponent<EnemyController>();
+        opponent = controller.enemyClass;
         opponent.spellManager = this;
 
         playerTurn = true;
@@ -50,18 +54,45 @@ public class SpellManager : MonoBehaviour
     //Called by both player controller and AI controller to cast the proper spell against the correct enemy
     public void castSpell(Spell spell, Mage caster)
     {
-        if(playerTurn)
+        caster.block = 0;
+
+        if (playerTurn)
         {
             //Events.SpellCast?.Invoke(spell, opponent);
-            player.cast(spell, opponent);
-            GameObject.FindWithTag("Enemy").GetComponent<EnemyController>().playerSpellsUsed.Add(spell);
-            GameObject.FindWithTag("Enemy").GetComponent<EnemyController>().CalculateMove();
+            caster.cast(spell, opponent);
+            controller.playerSpellsUsed.Add(spell);
+
+            if(controller.playerSpellsUsed.Count > 3)
+            {
+                controller.playerSpellsUsed.RemoveAt(0);
+            }
+
+            controller.StartCoroutine(controller.CastSpell());
         }
         else
         {
             //Events.SpellCast?.Invoke(spell, player);
-            opponent.cast(spell, player);
+            caster.cast(spell, player);
+            controller.CalculateMove();
         }
+
+        if (player.health <= 0)
+        {
+            GameState.playerWon = false;
+            StartCoroutine(EndGame());
+        }
+        else if (opponent.health <= 0)
+        {
+            GameState.playerWon = true;
+            StartCoroutine(EndGame());
+        }
+    }
+
+    private IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(1);
+
+        SceneManager.LoadScene("EndScreen");
     }
 
     //Function casts spell for the current mage and then rotates turn
