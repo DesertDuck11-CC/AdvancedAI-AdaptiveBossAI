@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackSpell
   aggroScale: 10
   statusScale: -10
-  spellValue: 15
+  spellValue: 12
   spellName: Attack

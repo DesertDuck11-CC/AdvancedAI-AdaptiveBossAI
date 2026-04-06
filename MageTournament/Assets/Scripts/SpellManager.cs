@@ -52,7 +52,7 @@ public class SpellManager : MonoBehaviour
     //Called by both player controller and AI controller to cast the proper spell against the correct enemy
     public void castSpell(Spell spell, Mage caster)
     {
-        caster.block = 0;
+        //caster.block = 0;
 
         if (playerTurn)
         {

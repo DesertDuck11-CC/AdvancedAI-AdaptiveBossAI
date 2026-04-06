@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DefenseSpell
   aggroScale: -10
   statusScale: -10
-  spellValue: 10
+  spellValue: 15
   spellName: Defend

@@ -77,6 +77,8 @@ public class EnemyController : MonoBehaviour
                 // Better if player is defending a lot, attacks are weaker
                 score -= defendCount * 1.5f;
 
+                score += enemyClass.block / 2;
+
                 break;
 
             case DefenseSpell:
