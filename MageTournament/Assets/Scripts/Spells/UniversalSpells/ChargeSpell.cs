@@ -1,18 +1,19 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Spells/Charge Spell", fileName = "Charge Spell")]
 public class ChargeSpell : Spell
 {
     //NPC constructor
-    public ChargeSpell(Mage m) : base(m)
-    {
-        initValues();
-    }
+    //public ChargeSpell(Mage m) : base(m)
+    //{
+    //    initValues();
+    //}
 
-    //Player constructor
-    public ChargeSpell(Sprite image) : base(image)
-    {
-        initValues();
-    }
+    ////Player constructor
+    //public ChargeSpell(Sprite image) : base(image)
+    //{
+    //    initValues();
+    //}
 
     protected override void initValues()
     {

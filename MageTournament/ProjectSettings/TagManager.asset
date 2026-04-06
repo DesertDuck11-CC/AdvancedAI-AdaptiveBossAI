@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UICanvas
   - SpellManager
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f7c1ec27914d04f9bd04aac6467497, type: 3}
+  m_Name: Fire Mage
+  m_EditorClassIdentifier: Assembly-CSharp::FireMage
+  spellBook: []
+  spellImages: []
+  spellManager: {fileID: 0}
+  health: 0
+  block: 0
+  maxHealth: 100
+  className: Fire Mage
+  attackSpell: {fileID: 11400000, guid: 8b3237fedc351b94198ca4536ee2a087, type: 2}
+  defenseSpell: {fileID: 11400000, guid: a9ffa37911475244dbdd56d0e5861fe4, type: 2}
+  weakenSpell: {fileID: 11400000, guid: 7feb9a8eae7e9a340bf3904c171c3afb, type: 2}
+  vulnerableSpell: {fileID: 11400000, guid: a671d76cbea41264a94599ea92f25c4b, type: 2}
+  chargeSpell: {fileID: 11400000, guid: b2fb62e0569121f43a62b60746955e2a, type: 2}
+  twinFireballSpell: {fileID: 11400000, guid: ae9ed78abefdc184b964d571ca61be88, type: 2}
+  igniteSpell: {fileID: 11400000, guid: 266cccc1c6f03b342921cb6976f0b727, type: 2}

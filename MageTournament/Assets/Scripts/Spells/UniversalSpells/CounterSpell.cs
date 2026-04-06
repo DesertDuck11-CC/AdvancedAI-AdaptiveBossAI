@@ -1,18 +1,19 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Spells/Counter Spell", fileName = "Counter Spell")]
 public class CounterSpell : Spell
 {
     //NPC constructor
-    public CounterSpell(Mage m) : base(m)
-    {
-        initValues();
-    }
+    //public CounterSpell(Mage m) : base(m)
+    //{
+    //    initValues();
+    //}
 
-    //Player constructor
-    public CounterSpell(Sprite image) : base(image)
-    {
-        initValues();
-    }
+    ////Player constructor
+    //public CounterSpell(Sprite image) : base(image)
+    //{
+    //    initValues();
+    //}
 
     //init values override
     protected override void initValues()

@@ -1,19 +1,20 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Spells/Weaken Spell", fileName = "Weaken Spell")]
 public class WeakenSpell : Spell
 {
     
     //NPC constructor
-    public WeakenSpell(Mage m) : base(m)
-    {
-        initValues();
-    }
+    //public WeakenSpell(Mage m) : base(m)
+    //{
+    //    initValues();
+    //}
 
-    //Player constructor
-    public WeakenSpell(Sprite image) : base (image)
-    {
-        initValues();
-    }
+    ////Player constructor
+    //public WeakenSpell(Sprite image) : base (image)
+    //{
+    //    initValues();
+    //}
 
     protected override void initValues()
     {

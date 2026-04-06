@@ -1,18 +1,19 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Spells/Frost Mage/Blizzard Spell", fileName = "Blizzard Spell")]
 public class BlizzardSpell : Spell
 {
     //NPC constructor
-    public BlizzardSpell(Mage m) : base(m)
-    {
-        initValues();
-    }
+    //public BlizzardSpell(Mage m) : base(m)
+    //{
+    //    initValues();
+    //}
 
-    //Player constructor
-    public BlizzardSpell(Sprite image) : base(image)
-    {
-        initValues();
-    }
+    ////Player constructor
+    //public BlizzardSpell(Sprite image) : base(image)
+    //{
+    //    initValues();
+    //}
 
     //init values override
     protected override void initValues()

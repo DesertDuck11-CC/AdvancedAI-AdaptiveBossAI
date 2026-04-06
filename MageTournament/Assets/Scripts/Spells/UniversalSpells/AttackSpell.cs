@@ -1,19 +1,20 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Spells/Attack Spell", fileName = "Attack Spell")]
 public class AttackSpell : Spell
 {
 
     //NPC constructor
-    public AttackSpell(Mage m) : base(m)
-    {
-        initValues();
-    }
+    //public AttackSpell(Mage m) : base(m)
+    //{
+    //    initValues();
+    //}
 
-    //Player constructor
-    public AttackSpell(Sprite image) : base(image)
-    {
-        initValues();
-    }
+    ////Player constructor
+    //public AttackSpell(Sprite image) : base(image)
+    //{
+    //    initValues();
+    //}
 
     //init values override
     protected override void initValues()

@@ -1,61 +1,78 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Mage : MonoBehaviour
+public class Mage : ScriptableObject
 {
     //Member vars
-    public List<Spell> spellBook = new List<Spell>();
+    [HideInInspector] public List<Spell> spellBook = new List<Spell>();
     public List<Sprite> spellImages = new List<Sprite>();
     private List<Status> statusEffects = new List<Status>();
-    protected SpellManager spellManager;
-    protected int health;
-    protected int block;
-    protected int maxHealth;
+    [HideInInspector] public SpellManager spellManager;
+    
+    [HideInInspector] public int health;
+    [HideInInspector] public int block;
+
+    [Header("Health")]
+    public int maxHealth;
+
+    [Header("Class Name")]
+    public string className;
+
+    [Header("Spells")]
+    public Spell attackSpell;
+    public Spell defenseSpell;
+    public Spell weakenSpell;
+    public Spell vulnerableSpell;
+    public Spell chargeSpell;
 
     //Constructors
-    public Mage(SpellManager sm)
-    {
-        spellManager = sm;
-        maxHealth = 100;
-        block = 0;
-        initSpellBook();
-        setSpellManager();
-    }
+    //public Mage(SpellManager sm)
+    //{
+    //    spellManager = sm;
+    //    maxHealth = 100;
+    //    health = maxHealth;
+    //    block = 0;
+    //    initSpellBook();
+    //    setSpellManager();
+    //}
 
-    public Mage()
-    {
-        maxHealth = 100;
-        block = 0;
-        initSpellBook();
-        setSpellManager();
-    }
+    //public Mage()
+    //{
+    //    maxHealth = 100;
+    //    health = maxHealth;
+    //    block = 0;
+    //    initSpellBook();
+    //    setSpellManager();
+    //}
 
-    //Copy constructors
-    public Mage(List<Spell> book, List<Sprite> images)
-    {
-        spellBook = book;
-        maxHealth = 100;
-        spellImages = images;
-        block = 0;
-        setSpellManager();
-    }
+    ////Copy constructors
+    //public Mage(List<Spell> book, List<Sprite> images)
+    //{
+    //    spellBook = book;
+    //    maxHealth = 100;
+    //    health = maxHealth;
+    //    spellImages = images;
+    //    block = 0;
+    //    setSpellManager();
+    //}
 
-    public Mage(List<Spell> book)
-    {
-        spellBook = book;
-        maxHealth = 100;
-        block = 0;
-        setSpellManager();
-    }
+    //public Mage(List<Spell> book)
+    //{
+    //    spellBook = book;
+    //    maxHealth = 100;
+    //    health = maxHealth;
+    //    block = 0;
+    //    setSpellManager();
+    //}
 
     //Binding/Unbinding events
     private void OnEnable()
     {
-        Events.SpellCast += cast;
+        //Events.SpellCast += cast;
     }
     private void OnDisable()
     {
-        Events.SpellCast -= cast;
+        //Events.SpellCast -= cast;
     }
 
     //Call this function on start to connect the spell manager to the mage class
@@ -71,16 +88,24 @@ public class Mage : MonoBehaviour
     }
 
     //Function initializes spell book values.  Each subclass adds on to this list with their custom spells
-    protected virtual void initSpellBook()
+    public virtual void initSpellBook()
     {
-        //empty spell book list to be safe
+        //Empty spell book list to be safe
         spellBook.Clear();
-        //Add the basic spell additions
-        spellBook.Add(new AttackSpell(this));
-        spellBook.Add(new DefenseSpell(this));
-        spellBook.Add(new WeakenSpell(this));
-        spellBook.Add(new VulnerableSpell(this));
-        spellBook.Add(new ChargeSpell(this));
+
+        // Assign spell owners
+        attackSpell.assignPlayer(this);
+        defenseSpell.assignPlayer(this);
+        weakenSpell.assignPlayer(this);
+        vulnerableSpell.assignPlayer(this);
+        chargeSpell.assignPlayer(this);
+
+        //Add the basic spell additions        
+        spellBook.Add(attackSpell);
+        spellBook.Add(defenseSpell);
+        spellBook.Add(weakenSpell);
+        spellBook.Add(vulnerableSpell);
+        spellBook.Add(chargeSpell);
     }
 
     //Function sets button images for each spell in the order: Attack->Defense->Weaken->Vulnerable->Charge->Custom1->Custom2
@@ -94,7 +119,7 @@ public class Mage : MonoBehaviour
 
 
     //function called by player to cast the spell
-    public void cast(int i, Mage enemy)
+    public void cast(Spell spell, Mage enemy)
     {
         if (enemy == this)
         {
@@ -102,7 +127,7 @@ public class Mage : MonoBehaviour
         }
         else
         {
-            spellBook[i].cast(enemy);
+            spell.cast(enemy);
             Events.NextTurn?.Invoke(this);
         }
     }
@@ -111,13 +136,14 @@ public class Mage : MonoBehaviour
     //Function called for damage modifiers as caster
     public void checkSelfStatus(int baseDamage)
     {
-        gameObject.GetComponents<Status>(statusEffects);
-        if (statusEffects.Count > 0)
-        {
-            //Check for damage modifiers
+        //gameObject.GetComponents<Status>(statusEffects);
+        //if (statusEffects.Count > 0)
+        //{
+        //    //Check for damage modifiers
 
-        }
+        //}
     }
+
     //Function called for damage modifiers as enemy
     public void checkEnemyStatus(int newDamage)
     {

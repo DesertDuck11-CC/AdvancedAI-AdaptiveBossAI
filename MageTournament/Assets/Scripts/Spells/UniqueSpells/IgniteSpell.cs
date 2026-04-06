@@ -1,18 +1,19 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Spells/Fire Mage/Ignite Spell", fileName = "Ignite Spell")]
 public class IgniteSpell : Spell
 {
     //NPC constructor
-    public IgniteSpell(Mage m) : base(m)
-    {
-        initValues();
-    }
+    //public IgniteSpell(Mage m) : base(m)
+    //{
+    //    initValues();
+    //}
 
-    //Player constructor
-    public IgniteSpell(Sprite image) : base(image)
-    {
-        initValues();
-    }
+    ////Player constructor
+    //public IgniteSpell(Sprite image) : base(image)
+    //{
+    //    initValues();
+    //}
 
     //init values override
     protected override void initValues()

@@ -5,23 +5,29 @@ using System.Collections.Generic;
 public class EnemyController : MonoBehaviour
 {
     public Mage enemyClass;
-    private List<Spell> playerSpellsUsed = new List<Spell>();
+    public List<Spell> playerSpellsUsed = new List<Spell>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Spell spellToUse;
+
+    void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        enemyClass = Instantiate(enemyClass);
+        enemyClass.health = enemyClass.maxHealth;
+        enemyClass.initSpellBook();
+
+        CalculateMove();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CalculateMove()
     {
-        
-    }
+        if(playerSpellsUsed.Count > 0)
+        {
 
-    //Call this when the player selects their mage class
-    void updateClass(Mage m)
-    {
-        enemyClass = new Mage(m.spellBook);
+        }
+        else
+        {
+            spellToUse = enemyClass.attackSpell;
+        }
     }
 }

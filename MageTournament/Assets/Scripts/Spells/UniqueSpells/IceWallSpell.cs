@@ -1,18 +1,19 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Spells/Frost Mage/Ice Wall Spell", fileName = "Ice Wall Spell")]
 public class IceWallSpell : Spell
 {
     //NPC constructor
-    public IceWallSpell(Mage m) : base(m)
-    {
-        initValues();
-    }
+    //public IceWallSpell(Mage m) : base(m)
+    //{
+    //    initValues();
+    //}
 
-    //Player constructor
-    public IceWallSpell(Sprite image) : base(image)
-    {
-        initValues();
-    }
+    ////Player constructor
+    //public IceWallSpell(Sprite image) : base(image)
+    //{
+    //    initValues();
+    //}
 
     //init values override
     protected override void initValues()

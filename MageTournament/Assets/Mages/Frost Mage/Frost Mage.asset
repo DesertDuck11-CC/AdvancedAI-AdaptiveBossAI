@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a272f7652045dae4db6998de35ff9f05, type: 3}
+  m_Name: Frost Mage
+  m_EditorClassIdentifier: Assembly-CSharp::FrostMage
+  spellBook: []
+  spellImages: []
+  spellManager: {fileID: 0}
+  health: 0
+  block: 0
+  maxHealth: 100
+  className: Frost Mage
+  attackSpell: {fileID: 11400000, guid: 33daa3d28a7e407428ea898b86a7f481, type: 2}
+  defenseSpell: {fileID: 11400000, guid: aa231c9090d93964a9fa5e604cf88fb8, type: 2}
+  weakenSpell: {fileID: 11400000, guid: 6161bef2cced0d34c981199e6874ab1c, type: 2}
+  vulnerableSpell: {fileID: 11400000, guid: 564db8a078d01cf489a92d2f3aa4feb7, type: 2}
+  chargeSpell: {fileID: 11400000, guid: e835f2d8f7b013045a0f2ed2ed7bd35a, type: 2}
+  blizzardSpell: {fileID: 11400000, guid: a8c3daadf730a0843aea53ca789ed41e, type: 2}
+  iceWallSpell: {fileID: 11400000, guid: af07c1fb288a0894980722d3fc71d60f, type: 2}

@@ -1,20 +1,28 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Mages/Fire Mage", fileName = "Fire Mage")]
 public class FireMage : Mage
 {
-    //Constructor
-    public FireMage() : base()
-    {
+    public Spell twinFireballSpell;
+    public Spell igniteSpell;
 
-    }
+    //Constructor
+    //public FireMage() : base()
+    //{
+
+    //}
 
 
     //Custom spellbook for fire mage
-    protected override void initSpellBook()
+    public override void initSpellBook()
     {
         base.initSpellBook();
-        spellBook.Add(new IgniteSpell(this));
-        spellBook.Add(new TwinFireballSpell(this));
+
+        twinFireballSpell.assignPlayer(this);
+        igniteSpell.assignPlayer(this);
+
+        spellBook.Add(twinFireballSpell);
+        spellBook.Add(igniteSpell);
         if (spellImages.Count > 0)
         {
             setSpellImages();

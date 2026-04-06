@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Spell
+public class Spell : ScriptableObject
 {
     //Member variables
     private Sprite buttonImage;
@@ -9,33 +9,32 @@ public class Spell
     protected Mage owner;
 
     //Child classes init these values
-    protected int aggroScale;   //Positive aggro: dealing damage                        negative aggro: defending
-    protected int statusScale;  //Positive status: using aggro through buffs/debuffs    negative status: using aggro through straight numbers
-    protected int spellValue;   //This is the numerical value of the spell effect, raw value means bigger numbers, status value means higher potency
+    public int aggroScale;   //Positive aggro: dealing damage                        negative aggro: defending
+    public int statusScale;  //Positive status: using aggro through buffs/debuffs    negative status: using aggro through straight numbers
+    public int spellValue;   //This is the numerical value of the spell effect, raw value means bigger numbers, status value means higher potency
     protected int baseSpellValue;
-    protected string spellName;
+    public string spellName;
 
     //npc spell constructor
-    public Spell(Mage owner)
-    {
-        buttonImage = null;
-        canvas = GameObject.FindGameObjectWithTag("UICanvas").GetComponent<Canvas>();
-        spellName = null;
-    }
+    //public Spell(Mage owner)
+    //{
+    //    buttonImage = null;
+    //    canvas = GameObject.FindGameObjectWithTag("UICanvas").GetComponent<Canvas>();
+    //    spellName = null;
+    //}
 
-    //Player spell constructor |||| CURRENTLY NOT IN USE
-    public Spell(Sprite image)
-    {
-        buttonImage = image;
-        canvas = GameObject.FindGameObjectWithTag("UICanvas").GetComponent<Canvas>();
-        initUI();
-    }
+    ////Player spell constructor |||| CURRENTLY NOT IN USE
+    //public Spell(Sprite image)
+    //{
+    //    buttonImage = image;
+    //    canvas = GameObject.FindGameObjectWithTag("UICanvas").GetComponent<Canvas>();
+    //    initUI();
+    //}
 
     //Function to set spell to belong to player
-    public void assignPlayer(Sprite image)
+    public void assignPlayer(Mage mage)
     {
-        buttonImage = image;
-        initUI();
+        owner = mage;
     }
 
     //Creates button and assigns it to canvas

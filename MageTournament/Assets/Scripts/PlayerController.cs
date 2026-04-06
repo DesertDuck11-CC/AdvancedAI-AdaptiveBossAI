@@ -6,24 +6,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Mage playerClass;
     [SerializeField] private List<Sprite> spellImages = new List<Sprite>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        updateClass(new FireMage());
+        playerClass = Instantiate(playerClass);
+        playerClass.health = playerClass.maxHealth;
+        playerClass.initSpellBook();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
-
-    //Call this when the player selects their mage class
-    void updateClass(Mage m)
-    {
-        playerClass = new Mage(m.spellBook, spellImages);
-    }
-
-
 }
