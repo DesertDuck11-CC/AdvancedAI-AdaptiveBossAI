@@ -23,8 +23,8 @@ public class AttackSpell : Spell
         spellValue = 15;
     }
 
-    public override void cast()
+    public override void cast(Mage enemy)
     {
-        
+        enemy.damage(spellValue);
     }
 }

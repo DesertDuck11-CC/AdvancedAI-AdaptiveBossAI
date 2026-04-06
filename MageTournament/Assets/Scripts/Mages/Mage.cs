@@ -8,6 +8,7 @@ public class Mage
     public List<Sprite> spellImages = new List<Sprite>();
     protected SpellManager spellManager;
     protected int health;
+    protected int block;
     protected int maxHealth;
 
     //Constructors
@@ -15,6 +16,7 @@ public class Mage
     {
         spellManager = sm;
         maxHealth = 100;
+        block = 0;
         initSpellBook();
         setSpellManager();
     }
@@ -22,6 +24,7 @@ public class Mage
     public Mage()
     {
         maxHealth = 100;
+        block = 0;
         initSpellBook();
         setSpellManager();
     }
@@ -32,6 +35,7 @@ public class Mage
         spellBook = book;
         maxHealth = 100;
         spellImages = images;
+        block = 0;
         setSpellManager();
     }
 
@@ -69,9 +73,27 @@ public class Mage
         }
     }
 
-    //
+    //Call this function when player's turn ends
+    public void endTurn()
+    {
+
+    }
+
+
+    //function called by player to cast the spell
     public void cast(int i)
     {
-        spellBook[i].cast();
+        spellManager.cast(spellBook[i]);
+    }
+
+    //function called to damage self
+    public void damage(int damage)
+    {
+        block = block - damage;
+        if(block <= 0)
+        {
+            health -= Mathf.Abs(block);
+            block = 0;
+        }
     }
 }

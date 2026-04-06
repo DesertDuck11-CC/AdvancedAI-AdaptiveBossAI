@@ -20,6 +20,21 @@ public class SpellManager : MonoBehaviour
         
     }
 
-
+    //Function casts spell for the current mage and then rotates turn
+    public void cast(Spell spell)
+    {
+        if(playerTurn)
+        {
+            spell.cast(opponent);
+            player.endTurn();
+            playerTurn = false;
+        }
+        else
+        {
+            spell.cast(player);
+            opponent.endTurn();
+            playerTurn = true;
+        }
+    }
     
 }

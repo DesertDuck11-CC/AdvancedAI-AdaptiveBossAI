@@ -53,8 +53,14 @@ public class Spell
     }
 
 
-    //Call this to cast the spell
+    //Call this to cast the spell if the spell affects the same mage
     public virtual void cast()
+    {
+
+    }
+
+    //Call this to cast the spell against the enemy
+    public virtual void cast(Mage enemy)
     {
 
     }

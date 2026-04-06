@@ -16,10 +16,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            playerClass.cast(0);
-        }
+        
     }
 
     //Call this when the player selects their mage class
