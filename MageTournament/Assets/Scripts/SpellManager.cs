@@ -49,8 +49,6 @@ public class SpellManager : MonoBehaviour
         Events.HurtMage -= damageMage;
     }
 
-
-
     //Called by both player controller and AI controller to cast the proper spell against the correct enemy
     public void castSpell(Spell spell, Mage caster)
     {

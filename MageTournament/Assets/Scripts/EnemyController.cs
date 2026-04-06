@@ -81,33 +81,33 @@ public class EnemyController : MonoBehaviour
 
             case DefenseSpell:
                 // Better if player attacks a lot, defend is valuable
-                score += attackCount * 2f;
+                score += attackCount * 4f;
 
                 // Better if low HP
-                score += (1f - enemyHealthPercent) * 5f;
+                score += (1f - enemyHealthPercent) * 3f;
 
                 break;
 
-            case WeakenSpell:
-                // Better if player is aggressive
-                score += attackCount * 2.5f;
-                break;
+            //case WeakenSpell:
+            //    // Better if player is aggressive
+            //    score += attackCount * 2.5f;
+            //    break;
 
-            case VulnerableSpell:
-                // Better if plan to attack soon
-                score += 3f;
-                break;
+            //case VulnerableSpell:
+            //    // Better if plan to attack soon
+            //    score += 3f;
+            //    break;
 
-            case ChargeSpell:
-                // Better early or if player is passive
-                score += (3 - attackCount) * 1.5f;
-                break;
+            //case ChargeSpell:
+            //    // Better early or if player is passive
+            //    score += (3 - attackCount) * 1.5f;
+            //    break;
 
-            case BlizzardSpell:
-                // Better if player is buffing or not defending
-                score += buffCount * 2f;
-                score += 4f;
-                break;
+            //case BlizzardSpell:
+            //    // Better if player is buffing or not defending
+            //    score += buffCount * 2f;
+            //    score += 4f;
+            //    break;
 
             case IceWallSpell:
                 // Emergency defense

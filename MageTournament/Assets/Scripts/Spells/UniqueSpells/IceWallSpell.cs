@@ -22,4 +22,9 @@ public class IceWallSpell : Spell
         statusScale = -10;
         spellValue = 20;
     }
+
+    public override void cast(Mage enemy)
+    {
+        owner.defend(spellValue);
+    }
 }
