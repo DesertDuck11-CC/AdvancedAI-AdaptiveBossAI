@@ -3,9 +3,10 @@ using UnityEngine;
 public class Status
 {
     protected Mage owner;
-    protected int duration;
+    public int duration;
     public bool positive;
-    protected int potency;
+    public int potency;
+    protected bool permanent = false;
 
     public Status()
     {
@@ -17,5 +18,15 @@ public class Status
     {
         duration = 0;
         potency = 0;
+    }
+
+    public bool nextTurn()
+    {
+        duration--;
+        if(!permanent && duration <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 }

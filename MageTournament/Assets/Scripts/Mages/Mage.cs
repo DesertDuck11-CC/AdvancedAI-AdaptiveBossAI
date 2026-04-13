@@ -25,6 +25,8 @@ public class Mage : ScriptableObject
     public Spell vulnerableSpell;
     public Spell chargeSpell;
 
+    private List<Status> currentEffects = new List<Status>();
+
     //Constructors
     //public Mage(SpellManager sm)
     //{
@@ -69,10 +71,12 @@ public class Mage : ScriptableObject
     private void OnEnable()
     {
         //Events.SpellCast += cast;
+        Events.NextTurn += nextTurn;
     }
     private void OnDisable()
     {
         //Events.SpellCast -= cast;
+        Events.NextTurn -= nextTurn;
     }
 
     //Call this function on start to connect the spell manager to the mage class
@@ -134,28 +138,49 @@ public class Mage : ScriptableObject
 
 
     //Function called for damage modifiers as caster
-    public void checkSelfStatus(int baseDamage)
+    public int checkSelfStatus(int baseDamage)
     {
-        //gameObject.GetComponents<Status>(statusEffects);
-        //if (statusEffects.Count > 0)
-        //{
-        //    //Check for damage modifiers
-
-        //}
+        int def = baseDamage;
+        foreach(Status s in currentEffects)
+        {
+            switch(s)
+            {
+                case (WeakenDebuff):
+                    def = def * (s.potency / 100);
+                    break;
+                default:
+                    //do nothing
+                    break;
+            }
+        }
+        return def;
     }
 
     //Function called for damage modifiers as enemy
-    public void checkEnemyStatus(int newDamage)
+    public int checkEnemyStatus(int newDamage)
     {
-
+        int def = newDamage;
+        foreach (Status s in currentEffects)
+        {
+            switch (s)
+            {
+                case (VulnerableDebuff):
+                    def = def * ((s.potency+100) / 100);
+                    break;
+                default:
+                    //do nothing
+                    break;
+            }
+        }
+        return def;
     }
 
     //function called to damage self
     public void damage(int damage)
     {
-        
+        int mod = spellManager.getOpponent(this).checkSelfStatus(damage);
 
-        block = block - damage;
+        block = block - checkEnemyStatus(mod);
         if(block <= 0)
         {
             
@@ -168,5 +193,25 @@ public class Mage : ScriptableObject
     public void defend(int b)
     {
         block += b;
+    }
+
+    public void addStatus(Status s)
+    {
+        currentEffects.Add(s);
+    }
+
+    //Called when the turn changes
+    public void nextTurn(Mage m)
+    {
+        if(m == this)
+        {
+            foreach (Status s in currentEffects)
+            {
+                if (s.nextTurn())
+                {
+                    currentEffects.Remove(s);
+                }
+            }
+        }
     }
 }

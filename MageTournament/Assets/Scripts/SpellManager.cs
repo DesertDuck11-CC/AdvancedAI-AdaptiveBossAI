@@ -110,4 +110,17 @@ public class SpellManager : MonoBehaviour
     {
         m.damage(dmg);
     }
+
+    //Easy function to get opposing mage
+    public Mage getOpponent(Mage m)
+    {
+        if(m == player)
+        {
+            return opponent;
+        }
+        else
+        {
+            return player;
+        }
+    }
 }

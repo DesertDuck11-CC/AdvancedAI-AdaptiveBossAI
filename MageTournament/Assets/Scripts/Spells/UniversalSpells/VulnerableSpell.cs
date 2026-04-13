@@ -22,4 +22,10 @@ public class VulnerableSpell : Spell
         statusScale = 10;
         spellValue = 4; //Base spell value increases damage by 40%
     }
+
+    public override void cast(Mage enemy)
+    {
+        VulnerableDebuff vd = new VulnerableDebuff(enemy);
+        enemy.addStatus(vd);
+    }
 }

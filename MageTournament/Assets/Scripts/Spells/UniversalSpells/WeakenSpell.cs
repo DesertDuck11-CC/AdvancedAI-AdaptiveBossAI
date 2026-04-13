@@ -22,4 +22,10 @@ public class WeakenSpell : Spell
         statusScale = 10;
         spellValue = 3; //Base spell value reduces damage by 30%
     }
+
+    public override void cast(Mage enemy)
+    {
+        WeakenDebuff wb = new WeakenDebuff(enemy);
+        enemy.addStatus(wb);
+    }
 }
