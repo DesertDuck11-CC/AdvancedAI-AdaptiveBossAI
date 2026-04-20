@@ -20,6 +20,7 @@ public class Status
         potency = 0;
     }
 
+
     public bool nextTurn()
     {
         duration--;

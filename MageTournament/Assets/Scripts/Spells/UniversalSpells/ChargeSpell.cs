@@ -25,6 +25,7 @@ public class ChargeSpell : Spell
 
     public override void cast(Mage enemy)
     {
-
+        Charge c = new Charge(owner);
+        owner.addStatus(c);
     }
 }

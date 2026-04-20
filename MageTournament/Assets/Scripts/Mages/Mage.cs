@@ -25,7 +25,7 @@ public class Mage : ScriptableObject
     public Spell vulnerableSpell;
     public Spell chargeSpell;
 
-    private List<Status> currentEffects = new List<Status>();
+    public List<Status> currentEffects = new List<Status>();
 
     //Constructors
     //public Mage(SpellManager sm)
@@ -131,11 +131,28 @@ public class Mage : ScriptableObject
         }
         else
         {
+            //check if spell has been charged
+            if(isCharge())
+            {
+                spell.spellValue *= 2;
+            }
             spell.cast(enemy);
             Events.NextTurn?.Invoke(this);
         }
     }
 
+    public bool isCharge()
+    {
+        foreach (Status s in currentEffects)
+        {
+            switch(s)
+            {
+                case (Charge):
+                    return true;
+            }
+        }
+        return false;
+    }
 
     //Function called for damage modifiers as caster
     public int checkSelfStatus(int baseDamage)
@@ -146,7 +163,8 @@ public class Mage : ScriptableObject
             switch(s)
             {
                 case (WeakenDebuff):
-                    def = def * (s.potency / 100);
+                    def = (int)(def * ((100.0f - s.potency) / 100.0f));
+                    Debug.Log(def);
                     break;
                 default:
                     //do nothing
@@ -165,7 +183,7 @@ public class Mage : ScriptableObject
             switch (s)
             {
                 case (VulnerableDebuff):
-                    def = def * ((s.potency+100) / 100);
+                    def = (int)(def * ((s.potency+100.0f) / 100.0f));
                     break;
                 default:
                     //do nothing

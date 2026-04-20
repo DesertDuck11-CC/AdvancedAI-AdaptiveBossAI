@@ -96,6 +96,7 @@ public class SpellManager : MonoBehaviour
     //Function casts spell for the current mage and then rotates turn
     public void nextTurn(Mage m)
     {
+        Debug.Log("NExt");
         if(playerTurn)
         {
             playerTurn = false;

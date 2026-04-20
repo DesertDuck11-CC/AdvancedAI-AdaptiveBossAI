@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public List<Spell> playerSpellsUsed = new List<Spell>();
 
     public Spell spellToUse;
+    private Vector2 playerID;
 
     void Awake()
     {
@@ -31,6 +32,27 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         enemyClass.spellManager.castSpell(spellToUse, enemyClass);
+    }
+
+    //Builds player profile
+    public void getHistory()
+    {
+        int aggro = 0;
+        int status = 0;
+        int index = 0;
+        foreach (var spell in playerSpellsUsed)
+        {
+            aggro += spell.aggroScale;
+            status += spell.statusScale;
+            if(index >= playerSpellsUsed.Count -3)
+            {
+                aggro += spell.aggroScale;
+                status += spell.statusScale;
+            }
+            index++;
+        }
+        playerID.x = aggro / playerSpellsUsed.Count;
+        playerID.y = status / playerSpellsUsed.Count;
     }
 
     public void CalculateMove()
@@ -58,6 +80,8 @@ public class EnemyController : MonoBehaviour
 
         return count;
     }
+
+
 
     float EvaluateSpell(Spell spell)
     {
@@ -90,20 +114,24 @@ public class EnemyController : MonoBehaviour
 
                 break;
 
-            //case WeakenSpell:
-            //    // Better if player is aggressive
-            //    score += attackCount * 2.5f;
-            //    break;
+            case WeakenSpell:
+                // Better if player is aggressive
+                score += attackCount * 2.5f;
+                break;
 
-            //case VulnerableSpell:
-            //    // Better if plan to attack soon
-            //    score += 3f;
-            //    break;
+            case VulnerableSpell:
+                // Better if plan to attack soon
+                score += 3f;
+                break;
 
-            //case ChargeSpell:
-            //    // Better early or if player is passive
-            //    score += (3 - attackCount) * 1.5f;
-            //    break;
+            case ChargeSpell:
+                // Better early or if player is passive
+                score += (3 - attackCount) * 1.5f;
+                if(enemyClass.isCharge())
+                {
+                    score = 0;
+                }
+                break;
 
             //case BlizzardSpell:
             //    // Better if player is buffing or not defending
