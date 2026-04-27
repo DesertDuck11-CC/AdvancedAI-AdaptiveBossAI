@@ -26,6 +26,7 @@ public class CounterSpell : Spell
 
     public override void cast(Mage enemy)
     {
-
+        Counterspell cs = new Counterspell(owner);
+        owner.addStatus(cs);
     }
 }

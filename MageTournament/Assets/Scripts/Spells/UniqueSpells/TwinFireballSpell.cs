@@ -22,4 +22,10 @@ public class TwinFireballSpell : Spell
         statusScale = -10;
         spellValue = 10;  //This spell does 10 damage twice
     }
+
+    public override void cast(Mage enemy)
+    {
+        Events.HurtMage?.Invoke(spellValue, enemy);
+        Events.HurtMage?.Invoke(spellValue, enemy);
+    }
 }

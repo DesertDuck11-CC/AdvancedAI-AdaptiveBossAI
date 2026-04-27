@@ -22,4 +22,10 @@ public class IgniteSpell : Spell
         statusScale = 10;
         spellValue = 5;  //Applies 3-turn buff to self that makes all damaging spells apply burning (5 DOT for 4 turns)
     }
+
+    public override void cast(Mage enemy)
+    {
+        IgniteDebuff ig = new IgniteDebuff(enemy);
+        enemy.addStatus(ig);
+    }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Mage : ScriptableObject
 {
@@ -185,6 +186,9 @@ public class Mage : ScriptableObject
                 case (VulnerableDebuff):
                     def = (int)(def * ((s.potency+100.0f) / 100.0f));
                     break;
+                case (IgniteDebuff):
+                    this.addStatus(new BurningDebuff(this));
+                    break;
                 default:
                     //do nothing
                     break;
@@ -201,7 +205,11 @@ public class Mage : ScriptableObject
         block = block - checkEnemyStatus(mod);
         if(block <= 0)
         {
-            
+            //check for brittle status
+            if(currentEffects.OfType<BrittleDebuff>().Any())
+            {
+                health -= 5;
+            }
             health -= Mathf.Abs(block);
             block = 0;
         }
@@ -215,7 +223,21 @@ public class Mage : ScriptableObject
 
     public void addStatus(Status s)
     {
-        currentEffects.Add(s);
+        if(currentEffects.OfType<Counterspell>().Any() && !s.positive)
+        {
+            foreach(Status sa in currentEffects)
+            {
+                if(sa is Counterspell)
+                {
+                    currentEffects.Remove(sa);
+                    return;
+                }
+            }
+        }
+        else
+        {
+            currentEffects.Add(s);
+        }
     }
 
     //Called when the turn changes

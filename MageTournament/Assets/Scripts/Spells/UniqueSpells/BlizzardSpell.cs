@@ -22,4 +22,11 @@ public class BlizzardSpell : Spell
         statusScale = -5;
         spellValue = 10;  //Deals 10 damage and applies brittle which deals a burst of damage when the affected mage's shield is broken
     }
+
+    public override void cast(Mage enemy)
+    {
+        BrittleDebuff bd = new BrittleDebuff(enemy);
+        enemy.addStatus(bd);
+        Events.HurtMage?.Invoke(spellValue, enemy);
+    }
 }
