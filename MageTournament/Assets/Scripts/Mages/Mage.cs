@@ -245,11 +245,11 @@ public class Mage : ScriptableObject
     {
         if(m == this)
         {
-            foreach (Status s in currentEffects)
+            for(int i = 0; i < currentEffects.Count; i++)
             {
-                if (s.nextTurn())
+                if (currentEffects[i].nextTurn())
                 {
-                    currentEffects.Remove(s);
+                    currentEffects.RemoveAt(i);
                 }
             }
         }
