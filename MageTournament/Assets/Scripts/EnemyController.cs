@@ -9,12 +9,15 @@ public class EnemyController : MonoBehaviour
 
     public Spell spellToUse;
     private Vector2 playerID;
+    private Vector2 statusID;
+    private SpellManager spellManager;
 
     void Awake()
     {
         enemyClass = Instantiate(enemyClass);
         enemyClass.health = enemyClass.maxHealth;
         enemyClass.initSpellBook();
+        spellManager = GameObject.FindWithTag("SpellManager").GetComponent<SpellManager>();
 
         CalculateMove();
     }
@@ -55,18 +58,83 @@ public class EnemyController : MonoBehaviour
         playerID.y = status / playerSpellsUsed.Count;
     }
 
+    //Modifies player profile based on the current buffs/debuffs active
+    public void checkStatus()
+    {
+        //Modify based on self statuses
+        int ag = 0;
+        foreach(Status s in enemyClass.currentEffects)
+        {
+            ag -= s.aggro;
+        }
+        if(enemyClass.currentEffects.Count > 0)
+        {
+            statusID.x = (ag / enemyClass.currentEffects.Count);
+            statusID.y = Mathf.Min(10.0f, enemyClass.currentEffects.Count - 2);
+        }
+
+        //Modify based on player statuses
+        ag = 0;
+        int count = 0;
+        foreach (Status s in spellManager.getOpponent(enemyClass).currentEffects)
+        {
+            ag -= s.seenAggro;
+            count++;
+        }
+        if(count > 0)
+        {
+            statusID.x = statusID.x + (ag / count);
+            statusID.y = statusID.y + Mathf.Max(-10.0f, count + 2);
+        }
+    }
+
     public void CalculateMove()
     {
-        Dictionary<Spell, float> utilities = new Dictionary<Spell, float>();
+        //checks if first turn of the game
+        if(playerSpellsUsed.Count <= 0)
+        {
+            spellToUse = enemyClass.spellBook[0];
+        }
+        else
+        {
+            //Build the player profile based on their previous moves and the status effects the enemy is affected with
+            getHistory();
+            checkStatus();
 
-        foreach (var spell in enemyClass.spellBook)
+            float smallestMag = 100.0f;
+            Vector2 player = -(playerID + statusID);
+            Vector2 test = new Vector2();
+            foreach (Spell s in enemyClass.spellBook)
+            {
+                test = new Vector2(s.aggroScale, s.statusScale);
+                if ((player - test).magnitude < smallestMag)
+                {
+                    spellToUse = s;
+                    smallestMag = (player - test).magnitude;
+                }
+            }
+        }
+        
+
+        //Dictionary<Spell, float> utilities = new Dictionary<Spell, float>();
+
+        /*foreach (var spell in enemyClass.spellBook)
         {
             float score = EvaluateSpell(spell);
             utilities.Add(spell, score);
-        }
+        }*/
 
-        spellToUse = GetBestSpell(utilities);
+        //spellToUse = GetBestSpell(utilities);
     }
+
+
+
+
+
+
+
+
+
 
     int CountRecent<T>() where T : Spell
     {
@@ -133,11 +201,11 @@ public class EnemyController : MonoBehaviour
                 }
                 break;
 
-            //case BlizzardSpell:
-            //    // Better if player is buffing or not defending
-            //    score += buffCount * 2f;
-            //    score += 4f;
-            //    break;
+            case BlizzardSpell:
+                // Better if player is defending
+                score += defendCount * 2f;
+                score += 4f;
+                break;
 
             case IceWallSpell:
                 // Emergency defense

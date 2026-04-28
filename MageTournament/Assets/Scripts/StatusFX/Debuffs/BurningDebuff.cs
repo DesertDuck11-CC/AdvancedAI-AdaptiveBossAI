@@ -11,7 +11,9 @@ public class BurningDebuff : Status
     protected override void setStats()
     {
         duration = 2;
-        potency = 10;
+        potency = 3;
         positive = false;
+        aggro = -10;
+        seenAggro = 10;
     }
 }

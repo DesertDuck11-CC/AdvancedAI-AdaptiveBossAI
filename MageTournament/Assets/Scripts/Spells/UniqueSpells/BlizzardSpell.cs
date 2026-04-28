@@ -18,7 +18,7 @@ public class BlizzardSpell : Spell
     //init values override
     protected override void initValues()
     {
-        aggroScale = 7;
+        aggroScale = 9;
         statusScale = -5;
         spellValue = 10;  //Deals 10 damage and applies brittle which deals a burst of damage when the affected mage's shield is broken
     }

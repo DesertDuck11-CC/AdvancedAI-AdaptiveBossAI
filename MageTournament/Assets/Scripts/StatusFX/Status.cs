@@ -6,6 +6,8 @@ public class Status
     public int duration;
     public bool positive;
     public int potency;
+    public int aggro;   //This aggro value is read as how the player should respond to having the status on them.  Positive aggro = just attack while negative aggro = defend
+    public int seenAggro;  //This value is read as how the player should respond to their opponent having this status.  Postivie aggro = just attack while negative aggro = defend
     protected bool permanent = false;
 
     public Status()

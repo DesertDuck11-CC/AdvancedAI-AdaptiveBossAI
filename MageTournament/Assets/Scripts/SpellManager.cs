@@ -60,10 +60,10 @@ public class SpellManager : MonoBehaviour
             caster.cast(spell, opponent);
             controller.playerSpellsUsed.Add(spell);
 
-            if(controller.playerSpellsUsed.Count > 3)
+            /*if(controller.playerSpellsUsed.Count > 3)
             {
                 controller.playerSpellsUsed.RemoveAt(0);
-            }
+            }*/
 
             controller.StartCoroutine(controller.CastSpell());
         }
@@ -96,7 +96,7 @@ public class SpellManager : MonoBehaviour
     //Function casts spell for the current mage and then rotates turn
     public void nextTurn(Mage m)
     {
-        Debug.Log("NExt");
+        //Debug.Log("NExt");
         if(playerTurn)
         {
             playerTurn = false;
@@ -109,6 +109,7 @@ public class SpellManager : MonoBehaviour
     
     public void damageMage(int dmg, Mage m)
     {
+        Debug.Log(dmg);
         m.damage(dmg);
     }
 

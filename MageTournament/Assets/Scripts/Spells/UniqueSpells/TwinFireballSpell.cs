@@ -18,8 +18,8 @@ public class TwinFireballSpell : Spell
     //init values override
     protected override void initValues()
     {
-        aggroScale = 10;
-        statusScale = -10;
+        aggroScale = 15;
+        statusScale = -15;
         spellValue = 10;  //This spell does 10 damage twice
     }
 

@@ -13,5 +13,7 @@ public class IgniteDebuff : Status
         duration = 3;
         potency = 10;
         positive = false;
+        aggro = -10;
+        seenAggro = 25;
     }
 }

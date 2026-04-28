@@ -13,5 +13,6 @@ public class Charge : Status
         duration = 2;
         potency = 2;
         positive = true;
+        aggro = 0;
     }
 }

@@ -19,7 +19,7 @@ public class IgniteSpell : Spell
     protected override void initValues()
     {
         aggroScale = 5;
-        statusScale = 10;
+        statusScale = 8;
         spellValue = 5;  //Applies 3-turn buff to self that makes all damaging spells apply burning (5 DOT for 4 turns)
     }
 

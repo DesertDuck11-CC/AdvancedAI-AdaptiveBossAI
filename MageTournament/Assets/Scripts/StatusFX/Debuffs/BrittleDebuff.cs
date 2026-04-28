@@ -11,7 +11,9 @@ public class BrittleDebuff : Status
     protected override void setStats()
     {
         duration = 4;
-        potency = 5;
+        potency = 7;
         positive = false;
+        aggro = 8;
+        seenAggro = 15;
     }
 }

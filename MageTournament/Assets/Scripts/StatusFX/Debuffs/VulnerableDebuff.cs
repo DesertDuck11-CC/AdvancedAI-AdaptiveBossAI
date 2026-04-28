@@ -13,5 +13,7 @@ public class VulnerableDebuff : Status
         duration = 3;
         potency = 40;
         positive = false;
+        aggro = -15;
+        seenAggro = 15;
     }
 }

@@ -14,5 +14,7 @@ public class WeakenDebuff : Status
         duration = 3;
         potency = 30;
         positive = false;
+        aggro = -10;
+        seenAggro = -10;
     }
 }

@@ -133,11 +133,13 @@ public class Mage : ScriptableObject
         else
         {
             //check if spell has been charged
+            var temp = spell.spellValue;
             if(isCharge())
             {
                 spell.spellValue *= 2;
             }
             spell.cast(enemy);
+            spell.spellValue = temp;
             Events.NextTurn?.Invoke(this);
         }
     }
@@ -159,13 +161,12 @@ public class Mage : ScriptableObject
     public int checkSelfStatus(int baseDamage)
     {
         int def = baseDamage;
-        foreach(Status s in currentEffects)
+        foreach(Status s in currentEffects.ToList())
         {
             switch(s)
             {
                 case (WeakenDebuff):
                     def = (int)(def * ((100.0f - s.potency) / 100.0f));
-                    Debug.Log(def);
                     break;
                 default:
                     //do nothing
@@ -179,7 +180,7 @@ public class Mage : ScriptableObject
     public int checkEnemyStatus(int newDamage)
     {
         int def = newDamage;
-        foreach (Status s in currentEffects)
+        foreach (Status s in currentEffects.ToList())
         {
             switch (s)
             {
@@ -198,17 +199,27 @@ public class Mage : ScriptableObject
     }
 
     //function called to damage self
-    public void damage(int damage)
+    public void damage(int damage, bool raw = false)
     {
-        int mod = spellManager.getOpponent(this).checkSelfStatus(damage);
+        //If damage comes from straight numbers or if it's done through an attack
+        if(raw)
+        {
+            Debug.Log("status dmg");
+            block = block - damage;
+        }
+        else
+        {
+            int mod = spellManager.getOpponent(this).checkSelfStatus(damage);
+            block = block - checkEnemyStatus(mod);
+        }
 
-        block = block - checkEnemyStatus(mod);
-        if(block <= 0)
+        //Block breaker
+        if (block <= 0)
         {
             //check for brittle status
             if(currentEffects.OfType<BrittleDebuff>().Any())
             {
-                health -= 5;
+                health -= 7;  //Should refactor this to use status potency
             }
             health -= Mathf.Abs(block);
             block = 0;
@@ -221,6 +232,7 @@ public class Mage : ScriptableObject
         block += b;
     }
 
+    //Function to apply a status to this mage
     public void addStatus(Status s)
     {
         if(currentEffects.OfType<Counterspell>().Any() && !s.positive)
@@ -247,6 +259,12 @@ public class Mage : ScriptableObject
         {
             for(int i = 0; i < currentEffects.Count; i++)
             {
+                //Check for DOT effects
+                if (currentEffects[i] is BurningDebuff)
+                {
+                    this.damage(currentEffects[i].potency, true);
+                }
+                //Check if status has expired
                 if (currentEffects[i].nextTurn())
                 {
                     currentEffects.RemoveAt(i);
